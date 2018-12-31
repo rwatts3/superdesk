@@ -21,9 +21,6 @@ kibana:
     service: kibana
   links:
   - elastic
-  ports:
-  - "5601:5601"
-
 elastic:
   extends:
     file: common.yml
@@ -45,9 +42,11 @@ superdesk:
    - logstash
    - postfix
    - pubapi
-  ports:
-   - "443:443"
-   - "80:80"
+  environment:
+   - VIRTUAL_HOST=$VIRTUAL_HOST
+   - VIRTUAL_PORT=$VIRTUAL_PORT
+   - LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL
+   - LETSENCRYPT_HOST=$LETSENCRYPT_HOST
 
 pubapi:
   extends:
